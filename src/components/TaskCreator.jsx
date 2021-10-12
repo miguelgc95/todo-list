@@ -5,6 +5,12 @@ export const TaskCreator = props => {
 
     const updateNewTaskValue = e => setNewTaskName(e.target.value);
 
+    const handleKeypress = e => {
+        if (e.charCode === 13) {
+            createNewTask();
+        }
+    };
+
     const createNewTask = () => {
         props.callback(newTaskName);
         setNewTaskName(' ');
@@ -17,6 +23,7 @@ export const TaskCreator = props => {
                 className="form-control"
                 value={newTaskName}
                 onChange={updateNewTaskValue}
+                onKeyPress={handleKeypress}
             />
             <button className="btn btn-primary mt-1" onClick={createNewTask}>
                 +
