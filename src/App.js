@@ -34,7 +34,12 @@ const App = () => {
         return taskItems
             .filter(task => task.done === doneValue)
             .map(task => (
-                <TaskRow task={task} key={task.name} toggleTask={toggleTask} />
+                <TaskRow
+                    task={task}
+                    key={task.name}
+                    toggleTask={toggleTask}
+                    deleteTask={deleteTask}
+                />
             ));
     };
 
@@ -52,6 +57,10 @@ const App = () => {
         );
     };
 
+    const deleteTask = taskName => {
+        setTaskItems(taskItems.filter(task => task.name !== taskName));
+    };
+
     return (
         <div className="App">
             <TaskBanner taskItems={taskItems} />
@@ -64,6 +73,7 @@ const App = () => {
                         <tr>
                             <th>Description</th>
                             <th>Done</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>{renderItems(false)}</tbody>
@@ -82,6 +92,7 @@ const App = () => {
                             <tr>
                                 <th>Description of completed tasks</th>
                                 <th>Done</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>{renderItems(true)}</tbody>
