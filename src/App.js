@@ -14,21 +14,30 @@ const App = () => {
 
     useEffect(() => {
         let data = localStorage.getItem('tasks');
+
+        localStorage.getItem('showCompletedLS') &&
+            setshowCompleted(
+                JSON.parse(localStorage.getItem('showCompletedLS'))
+            );
+
         if (data != null) {
             setTaskItems(JSON.parse(data));
         } else {
             setTaskItems([
                 { name: 'task 1 sdfgn', done: false },
                 { name: 'task 2', done: false },
-                { name: 'task 3', done: false },
             ]);
-            setshowCompleted(true);
+            setshowCompleted(false);
         }
     }, []);
 
     useEffect(() => {
         localStorage.setItem('tasks', JSON.stringify(taskItems));
     }, [taskItems]);
+
+    useEffect(() => {
+        localStorage.setItem('showCompletedLS', JSON.stringify(showCompleted));
+    }, [showCompleted]);
 
     const renderItems = doneValue => {
         return taskItems
