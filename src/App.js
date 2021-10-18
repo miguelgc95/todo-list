@@ -112,14 +112,3 @@ const App = () => {
     );
 };
 export default App;
-
-// HACER DE ESTA PÁGINA ALGO DINÁMICO FUNCIONAL, ÚTIL E INTERESANTE
-// Añadir readme al repo del scaling
-// justgetflux.com investigar
-// Pedir cita centro de salud
-// renovación DNI
-// Expedición de título US
-// Certificación académica US
-// cambiar el caps mayus por el esc
-// corregir Desktop con desktop
-// corregir el teclado para poner por dedfecto el inglés, pero añadirle al inglés la posibilidad de poner ñs y acentos
