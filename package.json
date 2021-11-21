@@ -3,15 +3,14 @@
     "version": "0.1.0",
     "private": true,
     "workspaces": [
-		"packages/*"
-	],
-    "dependencies": {
-    },
+        "packages/*"
+    ],
+    "dependencies": {},
     "scripts": {
         "start": "yarn workspace frontend run start",
-        "build": "yarn workspace frontend run build"
+        "build": "yarn workspace frontend run build",
+        "backend": "yarn workspace backend run dev"
     },
-
     "browserslist": {
         "production": [
             ">0.2%",

@@ -11,6 +11,6 @@ const app = express();
 // app.use(cors())
 // app.use(morgan('dev'))
 
-app.use('/tasts', tasksRouter);
+app.use('/tasks', tasksRouter);
 
 export default app;

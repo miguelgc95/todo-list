@@ -60,7 +60,10 @@ const config: GlobalConfigObject = {
     development: {
         ...baseConfig,
         db: {
-            url: MONGO_DB_URL_DEVELOPMENT || 'problem with database',
+            // url: MONGO_DB_URL_DEVELOPMENT || 'problem with database',
+            url:
+                MONGO_DB_URL_DEVELOPMENT ||
+                'mongodb://localhost:27017/tasksManagerDev',
         },
     },
     production: {

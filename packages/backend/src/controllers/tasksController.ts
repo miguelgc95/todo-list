@@ -1,9 +1,12 @@
-import InitialWeek from '../models/tasks';
+import { Request, Response } from 'express';
 
-async function getTasks(req, res) {
+import AllTasksModel from '../models/tasks';
+
+async function getAllTasks(req: Request, res: Response) {
     try {
-        const initialWeek = await InitialWeek.find();
-        res.json(initialWeek);
+        const allTasks = await AllTasksModel.find();
+        console.log(allTasks);
+        res.json(allTasks);
     } catch (error) {
         console.log(error);
         res.json(error);
@@ -20,4 +23,4 @@ async function getTasks(req, res) {
 //     }
 // }
 
-export { getTasks };
+export { getAllTasks };
