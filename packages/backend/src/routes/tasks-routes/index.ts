@@ -1,9 +1,9 @@
 import express from 'express';
-import { getAllTasks } from '../../controllers/tasksController';
+import { getAllTasks, postAllTasks } from '../../controllers/tasksController';
 
 const tasksRouter = express.Router();
 
 tasksRouter.get('/', getAllTasks);
-// trainingRouter.post('/post', postWeek);
+tasksRouter.post('/postAll', postAllTasks);
 
 export default tasksRouter;
