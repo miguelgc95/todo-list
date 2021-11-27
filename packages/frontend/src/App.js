@@ -1,114 +1,95 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
-import { TaskBanner } from './components/TaskBanner';
-import { TaskRow } from './components/TaskRow';
-import { TaskCreator } from './components/TaskCreator';
-import { VisibilityControl } from './components/VisibilityControl';
+import axios from 'axios'
+
+import { TaskBanner } from './components/TaskBanner'
+import { TaskRow } from './components/TaskRow'
+import { TaskCreator } from './components/TaskCreator'
+import { VisibilityControl } from './components/VisibilityControl'
 
 const App = () => {
-    const [taskItems, setTaskItems] = useState([
-        { name: 'task 1', done: false },
-    ]);
+	const [allTasks, setAllTasks] = useState([])
+	const [showCompleted, setshowCompleted] = useState(false)
 
-    const [showCompleted, setshowCompleted] = useState(false);
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await axios.get('http://localhost:3006/tasks')
+				setAllTasks(response.data)
+			} catch (error) {
+				console.log(error)
+			}
+		}
+		fetchData()
+	}, [setAllTasks])
 
-    useEffect(() => {
-        let data = localStorage.getItem('tasks');
+	useEffect(() => {
+		axios.post('/tasks/postAll', allTasks)
+	}, [allTasks])
 
-        localStorage.getItem('showCompletedLS') &&
-            setshowCompleted(
-                JSON.parse(localStorage.getItem('showCompletedLS'))
-            );
+	useEffect(() => {
+		localStorage.setItem('showCompletedLS', JSON.stringify(showCompleted))
+	}, [showCompleted])
 
-        if (data != null) {
-            setTaskItems(JSON.parse(data));
-        } else {
-            setTaskItems([
-                { name: 'task 1 sdfgn', done: false },
-                { name: 'task 2', done: false },
-            ]);
-            setshowCompleted(false);
-        }
-    }, []);
+	const renderItems = (doneValue) => {
+		console.log('allTasks :>> ', allTasks)
+		return allTasks
+			.filter((task) => task.done === doneValue)
+			.map((task) => (
+				<TaskRow task={task} key={task.name} toggleTask={toggleTask} deleteTask={deleteTask} />
+			))
+	}
 
-    useEffect(() => {
-        localStorage.setItem('tasks', JSON.stringify(taskItems));
-    }, [taskItems]);
+	const createNewTask = (taskName) => {
+		if (!allTasks.find((t) => t.name === taskName)) {
+			setAllTasks([...allTasks, { name: taskName, done: false }])
+		}
+	}
 
-    useEffect(() => {
-        localStorage.setItem('showCompletedLS', JSON.stringify(showCompleted));
-    }, [showCompleted]);
+	const toggleTask = (task) => {
+		return setAllTasks(allTasks.map((t) => (t.name === task.name ? { ...t, done: !t.done } : t)))
+	}
 
-    const renderItems = doneValue => {
-        return taskItems
-            .filter(task => task.done === doneValue)
-            .map(task => (
-                <TaskRow
-                    task={task}
-                    key={task.name}
-                    toggleTask={toggleTask}
-                    deleteTask={deleteTask}
-                />
-            ));
-    };
+	const deleteTask = (taskName) => {
+		setAllTasks(allTasks.filter((task) => task.name !== taskName))
+	}
 
-    const createNewTask = taskName => {
-        if (!taskItems.find(t => t.name === taskName)) {
-            setTaskItems([...taskItems, { name: taskName, done: false }]);
-        }
-    };
-
-    const toggleTask = task => {
-        return setTaskItems(
-            taskItems.map(t =>
-                t.name === task.name ? { ...t, done: !t.done } : t
-            )
-        );
-    };
-
-    const deleteTask = taskName => {
-        setTaskItems(taskItems.filter(task => task.name !== taskName));
-    };
-
-    return (
-        <div className="App">
-            <TaskBanner taskItems={taskItems} />
-
-            <div className="container-fluid">
-                <TaskCreator callback={createNewTask} />
-
-                <table className="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Done</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>{renderItems(false)}</tbody>
-                </table>
-
-                <div className="p-4">
-                    <VisibilityControl
-                        description="Completed Tasks"
-                        isChecked={showCompleted}
-                        callback={checked => setshowCompleted(checked)}
-                    />
-                </div>
-                {showCompleted && (
-                    <table className="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Description of completed tasks</th>
-                                <th>Done</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>{renderItems(true)}</tbody>
-                    </table>
-                )}
-            </div>
-        </div>
-    );
-};
-export default App;
+	return (
+		<div className="App">
+			<TaskBanner allTasks={allTasks} />
+			<div className="container-fluid">
+				<TaskCreator callback={createNewTask} />
+				<table className="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th>Description</th>
+							<th>Done</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody>{renderItems(false)}</tbody>
+				</table>
+				<div className="p-4">
+					<VisibilityControl
+						description="Completed Tasks"
+						isChecked={showCompleted}
+						callback={(checked) => setshowCompleted(checked)}
+					/>
+				</div>
+				{showCompleted && (
+					<table className="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th>Description of completed tasks</th>
+								<th>Done</th>
+								<th>Delete</th>
+							</tr>
+						</thead>
+						<tbody>{renderItems(true)}</tbody>
+					</table>
+				)}
+			</div>
+		</div>
+	)
+}
+export default App
