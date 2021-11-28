@@ -21,4 +21,13 @@ async function postNewTask(req: Request, res: Response) {
 	}
 }
 
-export { getAllTasks, postNewTask }
+async function deleteTask(req: Request, res: Response) {
+	try {
+		const result = AllTasksModel.find(req.params).remove().exec()
+		res.status(200).json(result)
+	} catch (error) {
+		res.json(error)
+	}
+}
+
+export { getAllTasks, postNewTask, deleteTask }

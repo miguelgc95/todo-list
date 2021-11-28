@@ -15,11 +15,20 @@ const fetchData = async () => {
 const postNewTask = async (task: Task) => {
 	try {
 		const response = await axios.post('http://localhost:3006/tasks/postNewTask', task)
-		delete response.data._id
 		return response.data
 	} catch (error) {
 		console.log(error)
 	}
 }
 
-export { fetchData, postNewTask }
+const deleteTaskRequest = async (_id: any) => {
+	try {
+		const response = await axios.delete(`http://localhost:3006/tasks/deleteTask/${_id}`)
+
+		return response.status === 200 ? true : false
+	} catch (error) {
+		console.log(error)
+	}
+}
+
+export { fetchData, postNewTask, deleteTaskRequest }
