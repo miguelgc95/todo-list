@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { fetchData } from './apiRequests'
+import { fetchData, postNewTask } from './apiRequests'
 
 import { TaskBanner } from './components/TaskBanner'
 import { TaskRow } from './components/TaskRow'
@@ -18,12 +18,7 @@ const App = () => {
 		}
 
 		dealWithAsynchronous()
-		console.log(dealWithAsynchronous())
 	}, [])
-
-	useEffect(() => {
-		// axios.post('/tasks/postAll', allTasks)
-	}, [allTasks])
 
 	useEffect(() => {
 		localStorage.setItem('showCompletedLS', JSON.stringify(showCompleted))
@@ -37,9 +32,11 @@ const App = () => {
 			))
 	}
 
-	const createNewTask = (taskName) => {
+	const createNewTask = async (taskName) => {
 		if (!allTasks.find((t) => t.name === taskName)) {
-			setAllTasks([...allTasks, { name: taskName, done: false }])
+			const newTaskSaved = await postNewTask({ name: taskName, done: false })
+			console.log('newTaskSaved', newTaskSaved)
+			setAllTasks([...allTasks, newTaskSaved])
 		}
 	}
 

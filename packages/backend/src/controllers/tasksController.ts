@@ -11,14 +11,14 @@ async function getAllTasks(req: Request, res: Response) {
 	}
 }
 
-async function postAllTasks(req: Request, res: Response) {
+async function postNewTask(req: Request, res: Response) {
 	try {
-		const postAllTasksObject = new AllTasksModel(req.body)
-		const result = await postAllTasksObject.save()
+		const postNewTaskObject = new AllTasksModel(req.body)
+		const result = await postNewTaskObject.save()
 		res.status(200).json(result)
 	} catch (error) {
 		res.json(error)
 	}
 }
 
-export { getAllTasks, postAllTasks }
+export { getAllTasks, postNewTask }

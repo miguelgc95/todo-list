@@ -1,16 +1,19 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
-const taskSchema = new mongoose.Schema({
-    name: {
-        require: true,
-        type: String,
-    },
-    done: {
-        require: true,
-        type: Boolean,
-    },
-});
+const taskSchema = new mongoose.Schema(
+	{
+		name: {
+			require: true,
+			type: String,
+		},
+		done: {
+			require: true,
+			type: Boolean,
+		},
+	},
+	{ versionKey: false }
+)
 
-const AllTasksModel = mongoose.model('AllTask', taskSchema);
+const AllTasksModel = mongoose.model('AllTask', taskSchema)
 
-export default AllTasksModel;
+export default AllTasksModel
