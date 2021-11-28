@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import axios from 'axios'
+import { fetchData } from './apiRequests'
 
 import { TaskBanner } from './components/TaskBanner'
 import { TaskRow } from './components/TaskRow'
@@ -12,19 +12,17 @@ const App = () => {
 	const [showCompleted, setshowCompleted] = useState(false)
 
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await axios.get('http://localhost:3006/tasks')
-				setAllTasks(response.data)
-			} catch (error) {
-				console.log(error)
-			}
+		async function dealWithAsynchronous() {
+			const fetchedTasks = await fetchData()
+			setAllTasks(fetchedTasks)
 		}
-		fetchData()
-	}, [setAllTasks])
+
+		dealWithAsynchronous()
+		console.log(dealWithAsynchronous())
+	}, [])
 
 	useEffect(() => {
-		axios.post('/tasks/postAll', allTasks)
+		// axios.post('/tasks/postAll', allTasks)
 	}, [allTasks])
 
 	useEffect(() => {
@@ -32,7 +30,6 @@ const App = () => {
 	}, [showCompleted])
 
 	const renderItems = (doneValue) => {
-		console.log('allTasks :>> ', allTasks)
 		return allTasks
 			.filter((task) => task.done === doneValue)
 			.map((task) => (
