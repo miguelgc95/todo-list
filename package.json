@@ -1,31 +1,21 @@
 {
-    "name": "todo-list-brave",
-    "version": "0.1.0",
-    "private": true,
-    "workspaces": [
-        "packages/*"
-    ],
-    "dependencies": {},
-    "scripts": {
-        "start": "yarn workspace frontend run start",
-        "build": "yarn workspace frontend run build",
-        "backend": "yarn workspace backend run dev"
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "devDependencies": {
-        "@types/node": "^16.11.11",
-        "ts-node": "^10.4.0",
-        "typescript": "^4.5.2"
-    }
+	"name": "todo-list-brave",
+	"version": "0.1.0",
+	"private": true,
+	"workspaces": ["packages/*"],
+	"dependencies": {},
+	"scripts": {
+		"start": "yarn workspace frontend run dev",
+		"build": "yarn workspace frontend run build",
+		"backend": "yarn workspace backend run dev"
+	},
+	"browserslist": {
+		"production": [">0.2%", "not dead", "not op_mini all"],
+		"development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+	},
+	"devDependencies": {
+		"@types/node": "^16.11.11",
+		"ts-node": "^10.4.0",
+		"typescript": "^4.5.2"
+	}
 }
