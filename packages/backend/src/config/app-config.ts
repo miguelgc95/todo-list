@@ -41,7 +41,7 @@ const baseConfig: baseConfig = {
         port: PORT || '3006',
     },
     client: {
-        url: process.env.CLIENT_URL || 'http://localhost:3000',
+        url: process.env.CLIENT_URL || 'http://localhost:3006',
     },
 };
 
