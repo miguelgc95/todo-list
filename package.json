@@ -5,7 +5,8 @@
 	"workspaces": ["packages/*"],
 	"dependencies": {},
 	"scripts": {
-		"start": "yarn workspace backend run start",
+		"start": "ts-node packages/backend/src/index.ts",
+		"start:tupu": "yarn workspace backend run start",
 		"build": "yarn workspace frontend run build",
 		"backend": "yarn workspace backend run dev"
 	},
