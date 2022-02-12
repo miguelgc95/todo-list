@@ -5,9 +5,10 @@
 	"workspaces": ["packages/*"],
 	"dependencies": {},
 	"scripts": {
-		"start": "ts-node packages/backend/src/index.ts",
-		"start:tupu": "yarn workspace backend run start",
-		"build": "yarn workspace frontend run build",
+		"start": "yarn workspace backend run start",
+		"pre-build": "yarn run build:frontend && rm -rf ./packages/backend/public/ && cp -r ./packages/frontend/build ./packages/backend/public/",
+		"build:frontend": "yarn workspace frontend run build",
+		"build:backend": "yarn workspace backend run build",
 		"backend": "yarn workspace backend run dev"
 	},
 	"browserslist": {
