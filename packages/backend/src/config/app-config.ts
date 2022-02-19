@@ -13,7 +13,8 @@ declare global {
 }
 
 const {
-    NODE_ENV = 'development',
+    NODE_ENV = 'production',
+    // NODE_ENV = 'development',
     MONGO_DB_URL_PRODUCTION,
     MONGO_DB_URL_DEVELOPMENT,
     PORT,
@@ -60,7 +61,6 @@ const config: GlobalConfigObject = {
     development: {
         ...baseConfig,
         db: {
-            // url: MONGO_DB_URL_DEVELOPMENT || 'problem with database',
             url:
                 MONGO_DB_URL_DEVELOPMENT ||
                 'mongodb://localhost:27017/tasksManagerDev',

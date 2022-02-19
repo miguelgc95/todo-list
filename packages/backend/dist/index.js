@@ -11,6 +11,6 @@ if (!config_1.default.app.port) {
 }
 (0, db_1.default)().then(() => {
     server_1.default.listen(config_1.default.app.port, () => {
-        console.log(`INIT SERVER ON PORT ${config_1.default.app.port} in prod mode :)`);
+        console.log(`INIT SERVER ON PORT ${config_1.default.app.port} :)`);
     });
 });
