@@ -5,9 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const { NODE_ENV = 'production', 
-// NODE_ENV = 'development',
-MONGO_DB_URL_PRODUCTION, MONGO_DB_URL_DEVELOPMENT, PORT, } = process.env;
+const { NODE_ENV, MONGO_DB_URL_PRODUCTION, MONGO_DB_URL_DEVELOPMENT, PORT, } = process.env;
 const baseConfig = {
     app: {
         port: PORT || '3006',
@@ -31,4 +29,4 @@ const config = {
         },
     },
 };
-exports.default = config[NODE_ENV];
+exports.default = config[NODE_ENV ? NODE_ENV : 'production'];

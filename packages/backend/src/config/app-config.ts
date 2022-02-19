@@ -13,8 +13,7 @@ declare global {
 }
 
 const {
-    NODE_ENV = 'production',
-    // NODE_ENV = 'development',
+    NODE_ENV,
     MONGO_DB_URL_PRODUCTION,
     MONGO_DB_URL_DEVELOPMENT,
     PORT,
@@ -74,4 +73,4 @@ const config: GlobalConfigObject = {
     },
 };
 
-export default config[NODE_ENV];
+export default config[NODE_ENV ? NODE_ENV : 'production'];

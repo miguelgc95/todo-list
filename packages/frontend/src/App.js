@@ -14,7 +14,6 @@ const App = () => {
 	useEffect(() => {
 		async function dealWithAsynchronous() {
 			const fetchedTasks = await fetchData()
-			console.log('fetchedTasks', fetchedTasks)
 			fetchedTasks ? setAllTasks(fetchedTasks) : setAllTasks([{ name: 'illo', done: false }])
 		}
 
