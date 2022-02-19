@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"description": "backend for the app",
 	"scripts": {
-		"start": "ts-node src/index.ts",
+		"start": "ts-node dist/index.js",
 		"dev": "nodemon src/index.ts",
 		"build": "tsc -p ."
 	},
